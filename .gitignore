@@ -9,3 +9,6 @@ RAG_Medcal_Chatbot.egg-info/
 Instructor Materials/
 *.log
 .DS_Store
+deepuser_accessKeys.csv
+*.csv
+.docker-config/

@@ -1,25 +1,19 @@
-# Use the Jenkins image as the base image
+# Jenkins LTS + Docker CLI (host docker.sock is mounted at runtime)
 FROM jenkins/jenkins:lts
 
-# Switch to root user to install dependencies
 USER root
 
-# Install prerequisites and Docker
-RUN apt-get update -y && \
-    apt-get install -y apt-transport-https ca-certificates curl gnupg software-properties-common && \
-    curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - && \
-    echo "deb [arch=amd64] https://download.docker.com/linux/debian bullseye stable" > /etc/apt/sources.list.d/docker.list && \
-    apt-get update -y && \
-    apt-get install -y docker-ce docker-ce-cli containerd.io && \
-    apt-get clean
+# Docker CLI only — engine comes from /var/run/docker.sock on the host
+RUN apt-get update -y \
+    && apt-get install -y --no-install-recommends ca-certificates curl gnupg \
+    && curl -fsSL https://download.docker.com/linux/static/stable/x86_64/docker-27.5.1.tgz \
+      | tar -xz -C /tmp \
+    && mv /tmp/docker/docker /usr/local/bin/docker \
+    && chmod +x /usr/local/bin/docker \
+    && rm -rf /tmp/docker \
+    && groupadd -f docker \
+    && usermod -aG docker jenkins \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
-# Add Jenkins user to the Docker group (create if it doesn't exist)
-RUN groupadd -f docker && \
-    usermod -aG docker jenkins
-
-# Create the Docker directory and volume for DinD
-RUN mkdir -p /var/lib/docker
-VOLUME /var/lib/docker
-
-# Switch back to the Jenkins user
 USER jenkins

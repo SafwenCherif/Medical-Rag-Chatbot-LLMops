@@ -1,0 +1,16 @@
+# Ignore secrets and heavy local tooling in the image/context
+venv/
+.venv/
+.git/
+logs/
+.env
+.env.*
+!.env.example
+*.csv
+deepuser_accessKeys.csv
+Instructor Materials/
+__pycache__/
+*.pyc
+*.egg-info/
+*.log
+.aws/
