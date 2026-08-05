@@ -12,7 +12,7 @@ OPENROUTER_MODEL = os.environ.get(
     "meta-llama/llama-3.1-8b-instruct",
 )
 
-# Kept for compatibility with course materials (not used by current Groq path)
+# Legacy constant retained for optional HuggingFace hosting experiments
 HUGGINGFACE_REPO_ID = "mistralai/Mistral-7B-Instruct-v0.3"
 
 DB_FAISS_PATH = "vectorstore/db_faiss"

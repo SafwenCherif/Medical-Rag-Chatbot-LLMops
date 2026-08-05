@@ -18,8 +18,8 @@ def load_llm(
     Load a chat LLM.
 
     Priority:
-      1) Groq (free tier) — same path as the Udemy course
-      2) OpenRouter — cheap/OpenAI-compatible fallback
+      1) Groq (preferred — fast free-tier friendly API)
+      2) OpenRouter — cheap OpenAI-compatible fallback
     """
     try:
         if groq_api_key:
