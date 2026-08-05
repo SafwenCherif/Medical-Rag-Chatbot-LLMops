@@ -1,0 +1,11 @@
+venv/
+.venv/
+logs/
+.env
+__pycache__/
+*.pyc
+*.egg-info/
+RAG_Medcal_Chatbot.egg-info/
+Instructor Materials/
+*.log
+.DS_Store
